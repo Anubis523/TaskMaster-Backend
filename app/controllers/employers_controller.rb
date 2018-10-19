@@ -14,6 +14,11 @@ class EmployersController < ActionController::API
     end
   end
 
+  def show_employer 
+    @employer = Employer.find(params[:id])
+    render json: @employer
+  end
+
   def get_tasks
     @employer = Employer.find(params[:id])
     @project = @employer.projects
