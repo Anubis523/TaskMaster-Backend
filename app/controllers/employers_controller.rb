@@ -14,6 +14,10 @@ class EmployersController < ActionController::API
     end
   end
 
+  def new_employer 
+    @employer = Employer.create!()
+  end
+
   def show_employer 
     @employer = Employer.find(params[:id])
     render json: @employer
@@ -113,6 +117,10 @@ class EmployersController < ActionController::API
 
   def worker_params
     params.require(:worker).permit(:name, :username)
+  end
+
+  def employer_params
+    # params.require(:employer).permit(:name, :username, :dept, :email, )
   end
 
 end

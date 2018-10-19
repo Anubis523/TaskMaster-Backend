@@ -10,12 +10,6 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '611dbdc5324866f6eedab1ce7511e4d500821566b3a63c3eefe059bcad95cba048256db993d9f8e290d66208947b4994b1725320e33b211b92e00fdc67795067'
   
-  # *NOTE: uncomment below snippet
-  # config.jwt do |jwt|
-  #   jwt.secret = ENV['DEVISE_JWT_SECRET']
-  # end
-
-
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -249,7 +243,7 @@ Devise.setup do |config|
   # Lists the formats that should be treated as navigational. Formats like
   # :html, should redirect to the sign in page when the user does not have
   # access, but formats like :xml or :json, should return 401.
-  #
+  
   # If you have any extra navigational formats, like :iphone or :mobile, you
   # should add them to the navigational formats lists.
   #

@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :workers
-  devise_for :employers
   resources :workers
-  resources :employers
 
   get '/employers/:id/projects/:project_id/tasks' => 'employers#show_tasks'
   get '/employers/:id/projects/:project_id' => 'employers#show_project'
   get '/employers/:id/projects' => 'employers#my_projects'
   get '/employers/:id/workers' => 'employers#my_workers'
   get '/employers/:id' => 'employers#show_employer'
+
   
   post '/employers/:id/projects/:project_id/create-task' => 'employers#add_task'
   post '/employers/:id/create-worker' => 'employers#new_worker'
   post '/employers/:id/create-project' => 'employers#new_project'
+  post '/employers/new' => 'employers#new_employer'
 
   patch '/employers/:id/projects/:project_id/tasks/:task_id' => 'employers#edit_task'
   patch '/employers/:id/projects/:project_id' => 'employers#edit_project'
