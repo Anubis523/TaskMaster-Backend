@@ -1,4 +1,4 @@
-class EmployersController < ActionController::API
+class EmployersController < ApplicationController
   def create_employer
     @employer = Employer.new(employer_params)
     @employer.save
@@ -27,12 +27,12 @@ class EmployersController < ActionController::API
 
   def show_tasks #for a particular project
     get_project_info
-    if get_project_info.nil? || @project.nil?
-      render json: get_project_info.errors, status: :unprocessable_entitiy
+    if @project.nil?
+      render json: { error: 'Project does not exist'}, status: 404
     else
-      if @project.tasks.nil? || @project.tasks.size < 1
-        render json: get_project_info.errors, status: :unprocessable_entitiy # *NOTE: needs better error management
-      else 
+      if @project.tasks.size < 1
+        render json: { error: 'No tasks found.' }, status: 404
+      else
         render json: @project.tasks
       end
     end
@@ -49,10 +49,10 @@ class EmployersController < ActionController::API
     @project = get_project_info
     @task = get_task_info
     if get_project_info.nil?
-      my_projects
+      render json: { error: 'Project that task would be found in unavailable or absent.' }, status: 404
     else
       if get_task_info.nil?
-        show_project
+        render json: { error: 'Task not found'}, status: 404
       else
         @task.update!(task_params)
         render json: @project.tasks
@@ -67,13 +67,18 @@ class EmployersController < ActionController::API
 
   def new_project
     @employer = Employer.find(params[:id])
-    @employer.projects << Project.create!(employer_id: @employer.id, title: params[:project][:title])
-    render json: @employer.projects.last
+    new_project = Project.new(employer_id: @employer.id, title: params[:project][:title], desc: params[:project][:desc])
+    if new_project.valid? 
+      new_project.save
+      render json: @employer.projects.last
+    else
+      render json: { error: 'Invalid input. Try again.' }, status: 412
+    end
   end
 
-  def edit_project # *NOTE:fix edits to only change what is given!!!
+  def edit_project
     @employer = Employer.find(params[:id])
-    Project.update(params[:project_id].to_i, project: params[:project])
+    Project.update(params[:project_id].to_i, project_params)
     render json: @employer.projects
   end
 
@@ -112,6 +117,10 @@ class EmployersController < ActionController::API
 
   def worker_params
     params.require(:worker).permit(:name, :username)
+  end
+
+  def project_params
+    params.require(:project).permit(:title, :desc)
   end
 
   def employer_params

@@ -1,4 +1,4 @@
-class ProjectsController < ActionController::API
+class ProjectsController < ApplicationController
   def get_tasks 
     @tasks = Project.find(params[:id]).tasks
     render json: @tasks
