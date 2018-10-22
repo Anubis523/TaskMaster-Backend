@@ -11,7 +11,7 @@ class EmployersController < ActionController::API
     render json: @projects
   end
 
-  def show_project #get specific project 
+  def show_project #get specific project
     @employer = Employer.find(params[:id])
     if get_project_info.nil?
       render json: @employer.projects
@@ -20,7 +20,7 @@ class EmployersController < ActionController::API
     end
   end
 
-  def show_employer 
+  def show_employer
     @employer = Employer.find(params[:id])
     render json: @employer
   end
@@ -32,7 +32,7 @@ class EmployersController < ActionController::API
     else
       if @project.tasks.nil? || @project.tasks.size < 1
         render json: get_project_info.errors, status: :unprocessable_entitiy # *NOTE: needs better error management
-      else 
+      else
         render json: @project.tasks
       end
     end
@@ -67,7 +67,7 @@ class EmployersController < ActionController::API
 
   def new_project
     @employer = Employer.find(params[:id])
-    @employer.projects << Project.create!(employer_id: @employer.id, title: params[:project][:title])
+    @employer.projects << Project.create!(employer_id: @employer.id, title: params[:project][:title], desc: params[:project][:title], tasks_arr: params[:project][:tasks])
     render json: @employer.projects.last
   end
 
@@ -85,7 +85,7 @@ class EmployersController < ActionController::API
 
   def new_worker
     @employer = Employer.find(params[:id])
-    new_hire = Worker.create!( name: params[:worker][:name], username: params[:worker][:username], dept: @employer.dept)
+    new_hire = Worker.create!(name: params[:worker][:name], username: params[:worker][:username], password: params[:worker][:password], email: params[:worker][:email], dept: @employer.dept, employer_id: @employer.id)
     @employer.hire(new_hire)
     render json: new_hire
   end
@@ -95,8 +95,8 @@ class EmployersController < ActionController::API
     @employer.remove_worker(params[:worker_id])
     render json: @employer.workers
   end
-  
-  private 
+
+  private
   def get_project_info
     @employer = Employer.find(params[:id])
     @project = @employer.projects.find{|project| project.id == params[:project_id].to_i}
@@ -105,7 +105,7 @@ class EmployersController < ActionController::API
   def get_task_info
     @task = Task.find(params[:task_id])
   end
- 
+
   def task_params
     params.require(:task).permit(:title, :desc)
   end
