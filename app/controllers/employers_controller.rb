@@ -1,4 +1,11 @@
 class EmployersController < ActionController::API
+  def create_employer
+    @employer = Employer.new(employer_params)
+
+    @employer.save
+    @employeePool = Project.new(id: @employer.employee_pool, employer_id: @employer.id , title: 'Employee Pool', desc: 'Where employees not assigned projects go for standby.')
+  end
+
   def my_projects #shows all projects
     @employer = Employer.find(params[:id])
     @projects = @employer.projects
@@ -12,10 +19,6 @@ class EmployersController < ActionController::API
     else
       render json: get_project_info
     end
-  end
-
-  def new_employer 
-    @employer = Employer.create!()
   end
 
   def show_employer 
@@ -89,8 +92,9 @@ class EmployersController < ActionController::API
 
   def new_worker
     @employer = Employer.find(params[:id])
-    @employer.workers << Worker.create!(employer_id: @employer.id, name: params[:worker][:name], username: params[:worker][:username], dept: @employer.dept)
-    render json: @employer.workers.last
+    new_hire = Worker.create!( name: params[:worker][:name], username: params[:worker][:username], dept: @employer.dept)
+    @employer.hire(new_hire)
+    render json: new_hire
   end
 
   def remove_worker
@@ -108,9 +112,7 @@ class EmployersController < ActionController::API
   def get_task_info
     @task = Task.find(params[:task_id])
   end
-  # def person_params
-  #   params.require(:person).permit(:name, :age)
-  # end
+ 
   def task_params
     params.require(:task).permit(:title, :desc)
   end
@@ -120,7 +122,7 @@ class EmployersController < ActionController::API
   end
 
   def employer_params
-    # params.require(:employer).permit(:name, :username, :dept, :email, )
+    params.require(:employer).permit(:name, :username, :dept, :email)
   end
 
 end
