@@ -1,4 +1,4 @@
-class WorkersController < ApplicationController
+class WorkersController < ActionController::API
 
   def index 
     render json: Worker.all
@@ -9,6 +9,15 @@ class WorkersController < ApplicationController
     render json: @worker
   end
 
+  def my_project
+    find_worker
+    if @worker.project.nil? 
+      render json: { error: 'Project not found. One can be assigned by a supervisor'}, status: 404
+    else
+      render json: @worker.project
+    end
+  end
+
   def show_tasks
     @worker = Worker.find(params[:id])
     render json: @worker.tasks
@@ -17,11 +26,11 @@ class WorkersController < ApplicationController
     # patch '/workers/:id/task/:task_id' => 'workers#edit_task
   def edit_task
     find_worker
-    task = @worker.tasks.find{|task| task.id == params[:task_id].to_i}
-    if task.nil?
+    @task = @worker.tasks.find{|task| task.id == params[:task_id].to_i}
+    if @task.nil?
       render json: { error: 'Task does not exist.'}, status: 404
     else
-      task.update!(task_params)
+      @task.update!(task_params)
       render json: @worker.tasks
     end
   end
@@ -52,6 +61,6 @@ class WorkersController < ApplicationController
   end
 
   def task_params
-    
+    params.require(:task).permit(:title, :desc)
   end
 end
