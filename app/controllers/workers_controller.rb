@@ -1,8 +1,17 @@
 class WorkersController < ActionController::API
 
+  def index 
+    render json: Worker.all
+  end
+
   def show
     find_worker
     render json: @worker
+  end
+
+  def show_tasks
+    @worker = Worker.find(params[:id])
+    render json: @worker.tasks
   end
 
   def update_info
@@ -13,7 +22,7 @@ class WorkersController < ActionController::API
 
   def my_boss
     find_worker
-    render json: @worker.project.employer
+    render json: @worker.employer
   end
 
   def my_tasks 

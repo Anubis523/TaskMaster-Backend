@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :workers
 
+  get '/workers/:id/tasks' => 'workers#show_tasks'
+  get 'workers/:id/employer' => 'workers#my_boss'
+  
   get '/employers/:id/projects/:project_id/tasks' => 'employers#show_tasks'
   get '/employers/:id/projects/:project_id' => 'employers#show_project'
   get '/employers/:id/projects' => 'employers#my_projects'

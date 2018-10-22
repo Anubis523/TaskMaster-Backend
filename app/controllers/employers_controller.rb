@@ -1,12 +1,11 @@
 class EmployersController < ActionController::API
   def create_employer
     @employer = Employer.new(employer_params)
-
     @employer.save
-    @employeePool = Project.new(id: @employer.employee_pool, employer_id: @employer.id , title: 'Employee Pool', desc: 'Where employees not assigned projects go for standby.')
+    # *NOTE: switch out for the employer#hire method instead, it fixes a lot of this crap
   end
 
-  def my_projects #shows all projects
+  def my_projects # shows all projects
     @employer = Employer.find(params[:id])
     @projects = @employer.projects
     render json: @projects
@@ -24,11 +23,6 @@ class EmployersController < ActionController::API
   def show_employer 
     @employer = Employer.find(params[:id])
     render json: @employer
-  end
-
-  def get_tasks
-    @employer = Employer.find(params[:id])
-    @project = @employer.projects
   end
 
   def show_tasks #for a particular project
@@ -68,8 +62,7 @@ class EmployersController < ActionController::API
 
   def my_workers
     @employer = Employer.find(params[:id])
-    @workers = @employer.workers
-    render json: @workers
+    render json: @employer.workers
   end
 
   def new_project
@@ -99,7 +92,7 @@ class EmployersController < ActionController::API
 
   def remove_worker
     @employer = Employer.find(params[:id])
-    @employer.projects.delete(Worker.find(params[:worker_id].to_i))
+    @employer.remove_worker(params[:worker_id])
     render json: @employer.workers
   end
   

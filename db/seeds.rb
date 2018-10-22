@@ -27,8 +27,9 @@ employer1.hire(worker1)
 employer1.hire(worker2)
 
 employer1.transfer_worker(worker1, employer2)
-byebug
 task1 = Task.new(title: 'Buy presents', desc:'Buy some presents', project: project1)
 task1.save
 
 worker2.select_task(task1)
+byebug
+0
