@@ -1,4 +1,4 @@
-class WorkersController < ActionController::API
+class WorkersController < ApplicationController
 
   def index 
     render json: Worker.all

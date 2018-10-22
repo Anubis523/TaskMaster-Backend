@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get '/employers/:id/projects' => 'employers#my_projects'
   get '/employers/:id/workers' => 'employers#my_workers'
   get '/employers/:id' => 'employers#show_employer'
-
   
   post '/employers/:id/projects/:project_id/create-task' => 'employers#add_task'
   post '/employers/:id/create-worker' => 'employers#new_worker'
