@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get '/employers/:id/projects' => 'employers#my_projects'
   get '/employers/:id/workers' => 'employers#my_workers'
   get '/employers/:id' => 'employers#show_employer'
-
   
   post '/employers/:id/projects/:project_id/create-task' => 'employers#add_task'
   post '/employers/:id/create-worker' => 'employers#new_worker'
@@ -18,6 +17,8 @@ Rails.application.routes.draw do
 
   patch '/employers/:id/projects/:project_id/tasks/:task_id' => 'employers#edit_task'
   patch '/employers/:id/projects/:project_id' => 'employers#edit_project'
+  
+  patch '/workers/:id/task/:task_id' => 'workers#edit_task'
 
   # delete works just highlights differently for no reason
   delete '/employers/:id/projects/:project_id' => 'employers#delete_project'

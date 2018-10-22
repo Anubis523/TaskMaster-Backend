@@ -2,7 +2,7 @@ class Employer < ApplicationRecord
   has_many :projects
   has_many :workers
   has_many :tasks, through: :projects
- 
+
   # after_create :make_employee_pool
 
   attr_accessor :worker_pool_id
