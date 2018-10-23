@@ -15,8 +15,6 @@ employer2.save
 project1 = Project.new(title: 'Christmas Party', desc: 'Annual Company Christmas Party that is always the last Friday of Q4.', employer: employer1)
 project1.save
 
-employee_pool = employer1.projects.first
-
 worker1 = Worker.new(name: Faker::Name.name, username: Faker::Internet.username(6..12))
 worker1.save
 
@@ -26,10 +24,12 @@ worker2.save
 employer1.hire(worker1)
 employer1.hire(worker2)
 
+worker2.project =  project1
+
 employer1.transfer_worker(worker1, employer2)
 task1 = Task.new(title: 'Buy presents', desc:'Buy some presents', project: project1)
 task1.save
 
-worker2.select_task(task1)
+# worker2.select_task(task1)
 byebug
 0
