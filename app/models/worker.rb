@@ -1,7 +1,7 @@
 class Worker < ApplicationRecord
   belongs_to :employer
-  has_many :projects, through: :employer
-  has_many :tasks, through: :projects
+  has_one :project, through: :employer
+  has_many :tasks, through: :project
   # has_secure_password
 
   def select_task(task)
@@ -13,6 +13,5 @@ class Worker < ApplicationRecord
       task.save 
       self.save
     end
-  end
-  
+  end  
 end

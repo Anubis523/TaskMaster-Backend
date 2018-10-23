@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get '/workers/:id/tasks' => 'workers#show_tasks'
   get 'workers/:id/employer' => 'workers#my_boss'
+  get '/workers/:id/project' => 'workers#my_project'
 
   get '/employers/:id/projects/:project_id/tasks' => 'employers#show_tasks'
   get '/employers/:id/projects/:project_id' => 'employers#show_project'
