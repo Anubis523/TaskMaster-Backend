@@ -1,6 +1,6 @@
 class WorkersController < ActionController::API
 
-  def index 
+  def index
     render json: Worker.all
   end
 
@@ -11,7 +11,7 @@ class WorkersController < ActionController::API
 
   def my_project
     find_worker
-    if @worker.project.nil? 
+    if @worker.project.nil?
       render json: { error: 'Project not found. One can be assigned by a supervisor'}, status: 404
     else
       render json: @worker.project
@@ -46,7 +46,7 @@ class WorkersController < ActionController::API
     render json: @worker.employer
   end
 
-  def my_tasks 
+  def my_tasks
     find_worker
     render json: @worker.tasks
   end
@@ -55,7 +55,7 @@ class WorkersController < ActionController::API
   def find_worker
     @worker = Worker.find(params[:id])
   end
-  
+
   def worker_params
     params.require(:worker).permit(:name, :username, :dept, :project_id)
   end
