@@ -1,6 +1,6 @@
 class WorkersController < ApplicationController
 
-  def index 
+  def index
     render json: Worker.all
   end
 
@@ -37,7 +37,7 @@ class WorkersController < ApplicationController
     render json: @worker.employer
   end
 
-  def my_tasks 
+  def my_tasks
     find_worker
     render json: @worker.tasks
   end
@@ -46,12 +46,12 @@ class WorkersController < ApplicationController
   def find_worker
     @worker = Worker.find(params[:id])
   end
-  
+
   def worker_params
     params.require(:worker).permit(:name, :username, :dept, :project_id)
   end
 
   def task_params
-    
+
   end
 end
