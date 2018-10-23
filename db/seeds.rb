@@ -24,7 +24,7 @@ worker2.save
 employer1.hire(worker1)
 employer1.hire(worker2)
 
-worker2.project =  project1
+worker2.set_project(project1)
 
 employer1.transfer_worker(worker1, employer2)
 task1 = Task.new(title: 'Buy presents', desc:'Buy some presents', project: project1)

@@ -7,6 +7,7 @@ class CreateWorkers < ActiveRecord::Migration[5.2]
       t.belongs_to :employer
       t.string :email
       t.string :password
+      t.integer :assignment_id
       t.timestamps
     end
   end

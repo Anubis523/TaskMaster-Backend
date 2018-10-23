@@ -4,8 +4,9 @@ class Task < ApplicationRecord
   has_one :employer, through: :project
   has_many :workers, through: :employer
 
-  validates :title, :desc, presence: true
-
-  enum status: [:unassigned, :wip, :under_review, :complete]
+  def set_status(stat)
+    status = stat
+    self.save
+  end
 
 end
