@@ -1,8 +1,10 @@
 class Worker < ApplicationRecord
   belongs_to :employer
-  has_one :project, through: :employer
-  has_many :tasks, through: :project
+  has_many :projects, through: :employer
+  has_many :tasks, through: :projects
   # has_secure_password
+
+  # before_action :filter_tasks
 
   def select_task(task)
     if task.project_id == self.project_id
@@ -13,5 +15,15 @@ class Worker < ApplicationRecord
       task.save 
       self.save
     end
-  end  
+  end
+
+  def project
+    Project.find(self.assignment_id)
+  end
+
+  def set_project(new_assignment)
+    self.assignment_id = new_assignment.id
+    self.save
+  end
+
 end

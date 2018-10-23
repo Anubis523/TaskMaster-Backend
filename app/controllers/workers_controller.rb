@@ -10,7 +10,8 @@ class WorkersController < ActionController::API
   end
 
   def my_project
-    find_worker
+    @worker = find_worker
+    byebug
     if @worker.project.nil?
       render json: { error: 'Project not found. One can be assigned by a supervisor'}, status: 404
     else

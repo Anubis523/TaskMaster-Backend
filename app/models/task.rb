@@ -4,11 +4,9 @@ class Task < ApplicationRecord
   has_one :employer, through: :project
   has_many :workers, through: :employer
   
-
-  attr_accessor :worker
-
-  def worker
-    self.workers.first
+  def set_status(stat)
+    status = stat
+    self.save
   end
 
 end

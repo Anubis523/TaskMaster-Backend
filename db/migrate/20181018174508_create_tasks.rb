@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.string :title
       t.string :desc
       t.integer :project_id
-      t.integer :worker_id
+      t.string :status, default: 'UNASSIGNED'
       t.timestamps
     end
   end

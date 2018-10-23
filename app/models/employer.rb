@@ -5,6 +5,7 @@ class Employer < ApplicationRecord
 
   def hire(worker)
     worker.dept = self.dept
+    worker.employer = self
     self.workers << worker
     worker.save
   end

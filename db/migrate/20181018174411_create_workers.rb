@@ -5,9 +5,9 @@ class CreateWorkers < ActiveRecord::Migration[5.2]
       t.string :username
       t.string :dept
       t.belongs_to :employer
-      t.integer :project_id
       t.string :email
       t.string :password
+      t.integer :assignment_id
       t.timestamps
     end
   end

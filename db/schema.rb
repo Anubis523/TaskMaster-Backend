@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_174508) do
     t.string "title"
     t.string "desc"
     t.integer "project_id"
-    t.integer "worker_id"
+    t.string "status", default: "UNASSIGNED"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(version: 2018_10_18_174508) do
     t.string "username"
     t.string "dept"
     t.bigint "employer_id"
-    t.integer "project_id"
     t.string "email"
     t.string "password"
+    t.integer "assignment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employer_id"], name: "index_workers_on_employer_id"
