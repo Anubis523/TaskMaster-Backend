@@ -2,6 +2,7 @@ class EmployersController < ApplicationController
   def create_employer
     @employer = Employer.new(employer_params)
     @employer.save
+    render json: @employer
     # *NOTE: switch out for the employer#hire method instead, it fixes a lot of this crap
   end
 
@@ -17,6 +18,16 @@ class EmployersController < ApplicationController
       render json: @employer.projects
     else
       render json: get_project_info
+    end
+  end
+
+  def login
+
+    @employer = Employer.find_by(username: params[:username])
+    if @employer != nil
+      render json: @employer
+    else
+      render json: { error: 'Project does not exist'}, status: 404
     end
   end
 
