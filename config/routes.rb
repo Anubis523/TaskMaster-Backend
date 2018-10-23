@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   post '/employers/:id/projects/:project_id/create-task' => 'employers#add_task'
   post '/employers/:id/create-worker' => 'employers#new_worker'
   post '/employers/:id/create-project' => 'employers#new_project'
-  post '/employers/new' => 'employers#new_employer'
+  post '/employers/new' => 'employers#create_employer'
+  post '/employers/login' => 'employers#login'
 
   patch '/employers/:id/projects/:project_id/tasks/:task_id' => 'employers#edit_task'
   patch '/employers/:id/projects/:project_id' => 'employers#edit_project'

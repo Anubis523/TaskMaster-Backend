@@ -7,6 +7,7 @@ class Task < ApplicationRecord
 
   attr_accessor :worker_id
 
+  
   def set_status(stat)
     status = stat
     self.save
