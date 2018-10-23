@@ -7,18 +7,22 @@ class Worker < ApplicationRecord
   # before_action :filter_tasks
 
   def select_task(task)
-    if task.project_id == self.project_id
+    if task.project_id == self.assignment_id
       # upon matching project id the rest can happen
-      task.workers.clear 
-      task.workers << self
-      self.tasks << task
+      task.set_worker(self)
+      self.project.tasks << task
       task.save 
       self.save
     end
   end
 
   def project
-    Project.find(self.assignment_id)
+    projects = Project.select{ |project| project.id == self.assignment_id}
+    if projects.length < 1
+      nil
+    else
+      projects.last
+    end
   end
 
   def set_project(new_assignment)

@@ -30,6 +30,8 @@ employer1.transfer_worker(worker1, employer2)
 task1 = Task.new(title: 'Buy presents', desc:'Buy some presents', project: project1)
 task1.save
 
+worker2.select_task(task1)
+
 # worker2.select_task(task1)
 byebug
 0

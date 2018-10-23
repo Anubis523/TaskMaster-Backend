@@ -42,6 +42,19 @@ class WorkersController < ActionController::API
     render json: @worker
   end
 
+  def get_worker_info
+    find_worker
+    render json: {
+        employer:{
+          name: @worker.employer.name,
+          dept: @worker.employer.dept
+        },
+        worker: @worker,
+        project: @worker.project,
+        tasks: @worker.tasks
+    }
+  end
+
   def my_boss
     find_worker
     render json: @worker.employer
