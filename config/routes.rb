@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   delete '/employers/:id/workers/:worker_id' => 'employers#remove_worker'
 
   delete '/workers/:id/tasks/:task_id' => 'workers#remove_task'
+  delete '/task/:id' => 'employers#delete_task'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

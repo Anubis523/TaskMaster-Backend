@@ -75,7 +75,7 @@ class WorkersController < ActionController::API
   end
 
   def worker_params
-    params.require(:worker).permit(:name, :username, :dept, :project_id)
+    params.require(:worker).permit(:name, :username, :dept, :project_id, :assignment_id)
   end
 
   def task_params

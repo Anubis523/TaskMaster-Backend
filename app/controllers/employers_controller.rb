@@ -112,6 +112,13 @@ class EmployersController < ApplicationController
     render json: @employer.workers
   end
 
+  def delete_task
+    @task = Task.find(params[:id])
+    @task.destroy
+
+    render json: {task: "Completed"}
+  end
+
   private
   def get_project_info
     @employer = Employer.find(params[:id])
