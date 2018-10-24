@@ -11,7 +11,6 @@ class WorkersController < ActionController::API
 
   def my_project
     @worker = find_worker
-    byebug
     if @worker.project.nil?
       render json: { error: 'Project not found. One can be assigned by a supervisor'}, status: 404
     else
@@ -24,7 +23,6 @@ class WorkersController < ActionController::API
     render json: @worker.tasks
   end
 
-    # patch '/workers/:id/task/:task_id' => 'workers#edit_task
   def edit_task
     find_worker
     @task = @worker.tasks.find{|task| task.id == params[:task_id].to_i}
@@ -36,9 +34,15 @@ class WorkersController < ActionController::API
     end
   end
 
+  def remove_task
+    find_worker
+    @worker.project.tasks.delete(Task.find(params[:task_id]))
+    render json: @worker.project.tasks
+  end
+
   def update_info
     find_worker
-    @worker.update!(worker_params)
+    @worker.update(worker_params)
     render json: @worker
   end
 
@@ -75,6 +79,6 @@ class WorkersController < ActionController::API
   end
 
   def task_params
-    params.require(:task).permit(:title, :desc)
+    params.require(:task).permit(:title, :desc, :status)
   end
 end

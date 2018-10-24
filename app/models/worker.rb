@@ -11,7 +11,6 @@ class Worker < ApplicationRecord
       # upon matching project id the rest can happen
       task.set_worker(self)
       self.project.tasks << task
-      task.save 
       self.save
     end
   end
@@ -23,6 +22,10 @@ class Worker < ApplicationRecord
     else
       projects.last
     end
+  end
+
+  def update_task(status, task)
+    task.set_status(status)
   end
 
   def set_project(new_assignment)

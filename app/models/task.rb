@@ -10,13 +10,12 @@ class Task < ApplicationRecord
   
   def set_status(stat)
     status = stat
-    self.save
+    self.update_columns(status: stat)
   end
 
   def set_worker(worker)
     @worker_id = worker.id
     set_status('WIP')
-    self.save
   end
 
   def worker 

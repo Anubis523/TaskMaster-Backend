@@ -21,11 +21,13 @@ Rails.application.routes.draw do
   patch '/employers/:id/projects/:project_id/tasks/:task_id' => 'employers#edit_task'
   patch '/employers/:id/projects/:project_id' => 'employers#edit_project'
 
-  patch '/workers/:id/task/:task_id' => 'workers#edit_task'
+  patch '/workers/:id/tasks/:task_id' => 'workers#edit_task'
   patch '/workers/:id/update' => 'workers#update_info'
 
   # delete works just highlights differently for no reason
   delete '/employers/:id/projects/:project_id' => 'employers#delete_project'
   delete '/employers/:id/workers/:worker_id' => 'employers#remove_worker'
+
+  delete '/workers/:id/tasks/:task_id' => 'workers#remove_task'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
